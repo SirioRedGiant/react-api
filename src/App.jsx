@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function App() {
   const [actresses, setActresses] = useState([]);
@@ -16,12 +17,26 @@ export default function App() {
   }, []);
 
   return (
-    <div>
-      <ul>
+    <div className="container mt-5">
+      <h1 className="text-center mb-4">
+        Attrici famose: dati e riconoscimenti
+      </h1>
+      <div className="row g-4">
         {actresses.map((actress) => (
-          <li key={actress.id}> {actress.name}</li>
+          <div key={actress.id} className="col-12 col-md-6 col-lg-4">
+            <div className="card h-100 shadow-sm" style={{ width: "18rem" }}>
+              <img
+                src={actress.image}
+                className="card-img-top"
+                alt={actress.name}
+              />
+              <div className="card-body">
+                <p className="card-text">{actress.biography}</p>
+              </div>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
