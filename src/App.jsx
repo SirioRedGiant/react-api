@@ -4,6 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function App() {
   const [actresses, setActresses] = useState([]);
+  const [actors, setActors] = useState([]);
+  const [allStars, setAllStars] = useState([]);
 
   useEffect(() => {
     axios.get("https://lanciweb.github.io/demo/api/actresses/").then((res) => {
@@ -15,6 +17,24 @@ export default function App() {
       });
     });
   }, []);
+  useEffect(() => {
+    axios.get("https://lanciweb.github.io/demo/api/actors/").then((res) => {
+      const actors = res.data;
+      console.log(actors);
+      setActors(actors);
+      actors.forEach((attrice) => {
+        console.log(attrice.name);
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    const allStars = [...actresses, ...actors]
+      .map((value) => ({ value, sort: Math.random() })) // crea un nuovo oggetto con array originale e sort con numero random
+      .sort((a, b) => a.sort - b.sort) // sorteggia gli oggetti in base a sort che e' random
+      .map(({ value }) => value); // restituisce un array come quello di prima
+    setAllStars(allStars);
+  }, [actresses, actors]);
 
   return (
     <div className="container mt-5">
@@ -22,7 +42,7 @@ export default function App() {
         Attrici famose: dati e riconoscimenti
       </h1>
       <div className="row g-4">
-        {actresses.map((actress) => (
+        {allStars.map((actress) => (
           <div key={actress.id} className="col-12 col-md-6 col-lg-4">
             <div className="card h-100 shadow-sm">
               <img
