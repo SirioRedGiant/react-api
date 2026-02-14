@@ -28,82 +28,49 @@ export default function App() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   const allStars = [...actresses, ...actors]
-  //     .map((value) => ({ value, sort: Math.random() })) // crea un nuovo oggetto con array originale e sort con numero random
-  //     .sort((a, b) => a.sort - b.sort) // sorteggia gli oggetti in base a sort che e' random
-  //     .map(({ value }) => value); // restituisce un array come quello di prima
-  //   setAllStars(allStars);
-  // }, [actresses, actors]);
+  //fixed ARTHUR STYLE
+
+  useEffect(() => {
+    const allStars = [...actresses, ...actors]
+      .map((value) => ({ value, sort: Math.random() })) // crea un nuovo oggetto con array originale e sort con numero random
+      .sort((a, b) => a.sort - b.sort) // sorteggia gli oggetti in base a sort che e' random
+      .map(({ value }) => value); // restituisce un array come quello di prima
+    setAllStars(allStars);
+  }, [actresses, actors]);
 
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">
         Attrici famose: dati e riconoscimenti
       </h1>
-      {/* Attrici */}
+      {/* Unica card shuffleata*/}
       <div className="row g-4">
-        {actresses.map((actress) => (
-          <div key={actress.id} className="col-12 col-md-6 col-lg-4">
+        {allStars.map((star) => (
+          <div key={star.id} className="col-12 col-md-6 col-lg-4">
             <div className="card h-100 shadow-sm">
               <img
-                src={actress.image}
+                src={star.image}
                 className="card-img-top"
-                alt={actress.name}
+                alt={star.name}
                 style={{ height: "350px", objectFit: "cover" }}
               />
               <div className="card-body">
                 <h3 className="card-title fw-bold">
-                  {actress.name}
+                  {star.name}
                   <span className="badge text-bg-secondary">
-                    {actress.nationality}
+                    {star.nationality}
                   </span>
                 </h3>
                 <h6 className="card-subtitle mb-2 text-muted">
-                  Nata nell'anno: {actress.birth_year}
+                  Nata nell'anno: {star.birth_year}
                 </h6>
-                <p className="card-text">{actress.biography}</p>
+                <p className="card-text">{star.biography}</p>
                 <div className="mt-auto">
                   <span className="badge bg-warning text-dark">
-                    {/* CONTROLLO SE LA VARIABILE è UN ARRAY --> Se awards è un array, uniscili con una virgola e uno spazio altrimenti restituisci la stringa di actress.awards*/}
-                    {Array.isArray(actress.awards)
-                      ? actress.awards.join(", ")
-                      : actress.awards}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-      {/* Attori */}
-      <div className="row g-4">
-        {actors.map((actor) => (
-          <div key={actor.id} className="col-12 col-md-6 col-lg-4">
-            <div className="card h-100 shadow-sm">
-              <img
-                src={actor.image}
-                className="card-img-top"
-                alt={actor.name}
-                style={{ height: "350px", objectFit: "cover" }}
-              />
-              <div className="card-body">
-                <h3 className="card-title fw-bold">
-                  {actor.name}
-                  <span className="badge text-bg-secondary">
-                    {actor.nationality}
-                  </span>
-                </h3>
-                <h6 className="card-subtitle mb-2 text-muted">
-                  Nata nell'anno: {actor.birth_year}
-                </h6>
-                <p className="card-text">{actor.biography}</p>
-                <div className="mt-auto">
-                  <span className="badge bg-warning text-dark">
-                    {/* CONTROLLO SE LA VARIABILE è UN ARRAY --> Se awards è un array, uniscili con una virgola e uno spazio altrimenti restituisci la stringa di actress.awards*/}{" "}
-                    {Array.isArray(actor.awards)
-                      ? actor.awards.join(", ")
-                      : actor.awards}
+                    {/* CONTROLLO SE LA VARIABILE è UN ARRAY --> Se awards è un array, uniscili con una virgola e uno spazio altrimenti restituisci la stringa di star.awards */}
+                    {Array.isArray(star.awards)
+                      ? star.awards.join(", ")
+                      : star.awards}
                   </span>
                 </div>
               </div>
