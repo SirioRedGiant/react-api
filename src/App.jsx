@@ -45,7 +45,7 @@ export default function App() {
       </h1>
       {/* Unica card shuffleata*/}
       <div className="row g-4">
-        //note La key combina nome e id per essere sicuri al 100% dell'unicità
+        {/*//note La key combina nome e id per essere sicuri al 100% dell'unicità */}
         {allStars.map((star) => (
           <div
             key={`${star.name}-${star.id}`}
@@ -65,12 +65,12 @@ export default function App() {
                     {star.nationality}
                   </span>
                 </h3>
-                <h6 className="card-subtitle mb-2 text-muted">
+                <h4 className="card-subtitle mb-2 text-muted">
                   Nata nell'anno: {star.birth_year}
-                </h6>
+                </h4>
                 {/* SEZIONE FILM FAMOSI */}
                 <div className="mb-3">
-                  <small className="fw-bold ">BEST FILMS:</small>
+                  <h5 className="fw-bold bg-info">BEST FILMS:</h5>
                   <p className="card-text small italic">
                     {(star.most_famous_movies || star.known_for)?.join(", ")}
                   </p>
