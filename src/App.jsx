@@ -28,21 +28,22 @@ export default function App() {
     });
   }, []);
 
-  useEffect(() => {
-    const allStars = [...actresses, ...actors]
-      .map((value) => ({ value, sort: Math.random() })) // crea un nuovo oggetto con array originale e sort con numero random
-      .sort((a, b) => a.sort - b.sort) // sorteggia gli oggetti in base a sort che e' random
-      .map(({ value }) => value); // restituisce un array come quello di prima
-    setAllStars(allStars);
-  }, [actresses, actors]);
+  // useEffect(() => {
+  //   const allStars = [...actresses, ...actors]
+  //     .map((value) => ({ value, sort: Math.random() })) // crea un nuovo oggetto con array originale e sort con numero random
+  //     .sort((a, b) => a.sort - b.sort) // sorteggia gli oggetti in base a sort che e' random
+  //     .map(({ value }) => value); // restituisce un array come quello di prima
+  //   setAllStars(allStars);
+  // }, [actresses, actors]);
 
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">
         Attrici famose: dati e riconoscimenti
       </h1>
+      {/* Attrici */}
       <div className="row g-4">
-        {allStars.map((actress) => (
+        {actresses.map((actress) => (
           <div key={actress.id} className="col-12 col-md-6 col-lg-4">
             <div className="card h-100 shadow-sm">
               <img
@@ -64,7 +65,45 @@ export default function App() {
                 <p className="card-text">{actress.biography}</p>
                 <div className="mt-auto">
                   <span className="badge bg-warning text-dark">
-                    {actress.awards}
+                    {/* CONTROLLO SE LA VARIABILE è UN ARRAY --> Se awards è un array, uniscili con una virgola e uno spazio altrimenti restituisci la stringa di actress.awards*/}
+                    {Array.isArray(actress.awards)
+                      ? actress.awards.join(", ")
+                      : actress.awards}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* Attori */}
+      <div className="row g-4">
+        {actors.map((actor) => (
+          <div key={actor.id} className="col-12 col-md-6 col-lg-4">
+            <div className="card h-100 shadow-sm">
+              <img
+                src={actor.image}
+                className="card-img-top"
+                alt={actor.name}
+                style={{ height: "350px", objectFit: "cover" }}
+              />
+              <div className="card-body">
+                <h3 className="card-title fw-bold">
+                  {actor.name}
+                  <span className="badge text-bg-secondary">
+                    {actor.nationality}
+                  </span>
+                </h3>
+                <h6 className="card-subtitle mb-2 text-muted">
+                  Nata nell'anno: {actor.birth_year}
+                </h6>
+                <p className="card-text">{actor.biography}</p>
+                <div className="mt-auto">
+                  <span className="badge bg-warning text-dark">
+                    {/* CONTROLLO SE LA VARIABILE è UN ARRAY --> Se awards è un array, uniscili con una virgola e uno spazio altrimenti restituisci la stringa di actress.awards*/}{" "}
+                    {Array.isArray(actor.awards)
+                      ? actor.awards.join(", ")
+                      : actor.awards}
                   </span>
                 </div>
               </div>
